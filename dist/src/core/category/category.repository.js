@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const category_entity_1 = require("./category.entity");
-let CategoryRepository = class CategoryRepository extends typeorm_1.BaseEntity {
+let CategoryRepository = class CategoryRepository extends typeorm_1.Repository {
 };
 CategoryRepository = __decorate([
     (0, typeorm_1.EntityRepository)(category_entity_1.default)

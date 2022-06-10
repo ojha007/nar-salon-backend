@@ -4,5 +4,6 @@ declare class ConfigService {
     constructor(filePath: string);
     getTypeORMConfig(): TypeOrmModuleOptions;
     private validateInput;
+    getTypeORMRoot(): TypeOrmModuleOptions;
 }
 export default ConfigService;

@@ -1,9 +1,9 @@
-import { CategoryType } from '../../constants/CategoryType.enum';
 import { BaseEntity } from 'typeorm';
 export default class CategoryEntity extends BaseEntity {
+    static MODEL_NAME: string;
     id: number;
     name: string;
-    parentId: number;
-    type: CategoryType;
+    parent: CategoryEntity;
+    children: CategoryEntity[];
     isActive: boolean;
 }

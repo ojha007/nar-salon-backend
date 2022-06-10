@@ -8,33 +8,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var CategoryEntity_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-const CategoryType_enum_1 = require("../../constants/CategoryType.enum");
 const typeorm_1 = require("typeorm");
-let CategoryEntity = class CategoryEntity extends typeorm_1.BaseEntity {
+let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.BaseEntity {
 };
+CategoryEntity.MODEL_NAME = 'categories';
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'id', type: 'bigint' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'id', type: 'int' }),
     __metadata("design:type", Number)
 ], CategoryEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'name', nullable: false, type: 'varchar', length: 25 }),
+    (0, typeorm_1.Column)({
+        name: 'name',
+        nullable: false,
+        type: 'varchar',
+        length: 25,
+    }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'parent_id', nullable: true, type: 'bigint' }),
-    __metadata("design:type", Number)
-], CategoryEntity.prototype, "parentId", void 0);
+    (0, typeorm_1.ManyToOne)(() => CategoryEntity_1, (category) => category.children),
+    (0, typeorm_1.JoinColumn)({ name: 'parent_id' }),
+    __metadata("design:type", CategoryEntity)
+], CategoryEntity.prototype, "parent", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'type', enum: CategoryType_enum_1.CategoryType, nullable: false }),
-    __metadata("design:type", String)
-], CategoryEntity.prototype, "type", void 0);
+    (0, typeorm_1.OneToMany)(() => CategoryEntity_1, (category) => category.parent),
+    __metadata("design:type", Array)
+], CategoryEntity.prototype, "children", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'is_active', default: true, type: 'boolean' }),
     __metadata("design:type", Boolean)
 ], CategoryEntity.prototype, "isActive", void 0);
-CategoryEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'categories' })
+CategoryEntity = CategoryEntity_1 = __decorate([
+    (0, typeorm_1.Entity)(CategoryEntity_1.MODEL_NAME)
 ], CategoryEntity);
 exports.default = CategoryEntity;
 //# sourceMappingURL=category.entity.js.map

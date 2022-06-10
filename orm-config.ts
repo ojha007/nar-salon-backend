@@ -1,16 +1,7 @@
 import { join } from 'path/posix';
 import ConfigService from './src/modules/config.service';
 
-let path = join(__dirname, '../');
+let path = join(__dirname, '.env.local');
 const configService: ConfigService = new ConfigService(path);
-
-let dbConfiguration = {
-  subscribers: [__dirname + '/src/subscriber/*.{ts,js}'],
-  migrations: [__dirname + '/src/migrations/*.{ts,js}'],
-  cli: {
-    entitiesDir: 'src/core',
-    migrationsDir: 'src/migrations',
-    subscribersDir: 'src/subscriber',
-  },
-};
+let dbConfiguration = configService.getTypeORMConfig();
 export default dbConfiguration;

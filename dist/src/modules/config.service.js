@@ -14,31 +14,21 @@ const fs = require("fs");
 const Joi = require("@hapi/joi");
 const common_1 = require("@nestjs/common");
 const path = require("path");
+const fileToClass_1 = require("../utils/fileToClass");
 let ConfigService = class ConfigService {
     constructor(filePath) {
         const config = dotenv.parse(fs.readFileSync(filePath));
         this.envConfig = this.validateInput(config);
     }
     getTypeORMConfig() {
-        const baseDir = path.join(__dirname, '../');
-        const entitiesPath = `${baseDir}${this.envConfig.ENTITIES_PATH}`;
-        const migrationPath = `${baseDir}${this.envConfig.MIGRATION_PATH}`;
-        const type = this.envConfig.ORM_CONNECTION;
-        return {
-            type,
-            host: this.envConfig.DB_HOST,
-            username: this.envConfig.DB_USER,
-            password: this.envConfig.DB_PASSWORD,
-            database: this.envConfig.DB_NAME,
-            port: Number.parseInt(this.envConfig.DB_PORT, 5239),
-            logging: false,
-            entities: [entitiesPath],
-            migrations: [migrationPath],
-            cli: {
-                migrationsDir: 'src/migrations',
+        const baseDir = path.join(__dirname, '../../dist');
+        const entitiesPath = `${baseDir}/src`;
+        const migrationPath = `${baseDir}/migrations/*.js`;
+        let rootConfig = this.getTypeORMRoot();
+        return Object.assign(Object.assign({}, rootConfig), { entities: (0, fileToClass_1.readAllEntities)(entitiesPath), migrations: [migrationPath], cli: {
+                migrationsDir: 'migrations',
                 entitiesDir: 'src/core/entities',
-            },
-        };
+            } });
     }
     validateInput(envConfig) {
         const envVarsSchema = Joi.object({
@@ -50,6 +40,19 @@ let ConfigService = class ConfigService {
             throw new Error(`Config validation error: ${error.message}`);
         }
         return validatedEnvConfig;
+    }
+    getTypeORMRoot() {
+        return {
+            type: 'postgres',
+            host: this.envConfig.DB_HOST,
+            username: this.envConfig.DB_USER,
+            password: this.envConfig.DB_PASSWORD,
+            database: this.envConfig.DB_NAME,
+            port: parseInt(this.envConfig.DB_PORT),
+            logging: false,
+            entities: [],
+            migrations: [],
+        };
     }
 };
 ConfigService = __decorate([

@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import IEnvConfigInterface from '../interfaces/IEnvConfigInterface';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as path from 'path';
+import { readAllEntities } from '../utils/fileToClass';
 
 @Injectable()
 class ConfigService {
@@ -16,22 +17,16 @@ class ConfigService {
   }
 
   public getTypeORMConfig(): TypeOrmModuleOptions {
-    const baseDir = path.join(__dirname, '../');
-    const entitiesPath = `${baseDir}${this.envConfig.ENTITIES_PATH}`;
-    const migrationPath = `${baseDir}${this.envConfig.MIGRATION_PATH}`;
-    const type: any = this.envConfig.ORM_CONNECTION;
+    const baseDir = path.join(__dirname, '../../dist');
+    const entitiesPath: string = `${baseDir}/src`;
+    const migrationPath: string = `${baseDir}/migrations/*.js`;
+    let rootConfig = this.getTypeORMRoot();
     return {
-      type,
-      host: this.envConfig.DB_HOST,
-      username: this.envConfig.DB_USER,
-      password: this.envConfig.DB_PASSWORD,
-      database: this.envConfig.DB_NAME,
-      port: Number.parseInt(this.envConfig.DB_PORT, 5239),
-      logging: false,
-      entities: [entitiesPath],
+      ...rootConfig,
+      entities: readAllEntities(entitiesPath),
       migrations: [migrationPath],
       cli: {
-        migrationsDir: 'src/migrations',
+        migrationsDir: 'migrations',
         entitiesDir: 'src/core/entities',
       },
     };
@@ -52,6 +47,20 @@ class ConfigService {
       throw new Error(`Config validation error: ${error.message}`);
     }
     return validatedEnvConfig;
+  }
+
+  public getTypeORMRoot(): TypeOrmModuleOptions {
+    return {
+      type: 'postgres',
+      host: this.envConfig.DB_HOST,
+      username: this.envConfig.DB_USER,
+      password: this.envConfig.DB_PASSWORD,
+      database: this.envConfig.DB_NAME,
+      port: parseInt(this.envConfig.DB_PORT),
+      logging: false,
+      entities: [],
+      migrations: [],
+    };
   }
 }
 

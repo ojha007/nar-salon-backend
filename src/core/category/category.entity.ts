@@ -1,19 +1,36 @@
 import { CategoryType } from '../../constants/CategoryType.enum';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity({ name: 'categories' })
+@Entity(CategoryEntity.MODEL_NAME)
 export default class CategoryEntity extends BaseEntity {
-  @PrimaryGeneratedColumn({ name: 'id', type: 'bigint' })
+  static MODEL_NAME = 'categories';
+
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id: number;
 
-  @Column({ name: 'name', nullable: false, type: 'varchar', length: 25 })
+  @Column({
+    name: 'name',
+    nullable: false,
+    type: 'varchar',
+    length: 25,
+  })
   name: string;
 
-  @Column({ name: 'parent_id', nullable: true, type: 'bigint' })
-  parentId: number;
+  @ManyToOne(() => CategoryEntity, (category) => category.children)
+  @JoinColumn({ name: 'parent_id' })
+  parent: CategoryEntity;
 
-  @Column({ name: 'type', enum: CategoryType, nullable: false })
-  type: CategoryType;
+  @OneToMany(() => CategoryEntity, (category) => category.parent)
+  children: CategoryEntity[];
 
   @Column({ name: 'is_active', default: true, type: 'boolean' })
   isActive: boolean;

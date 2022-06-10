@@ -1,3 +1,4 @@
-import { BaseEntity } from 'typeorm';
-export default class CategoryRepository extends BaseEntity {
+import { Repository } from 'typeorm';
+import CategoryEntity from './category.entity';
+export default class CategoryRepository extends Repository<CategoryEntity> {
 }

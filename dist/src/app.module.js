@@ -8,17 +8,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const core_1 = require("@nestjs/core");
+const typeorm_1 = require("@nestjs/typeorm");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_module_1 = require("./modules/config.module");
+const config_service_1 = require("./modules/config.service");
 const fileToClass_1 = require("./utils/fileToClass");
+const ResponseInterceptor_1 = require("../src/interceptors/ResponseInterceptor");
+const HttpException_1 = require("./handlers/HttpException");
+let config = new config_service_1.default('.env.local');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_module_1.default, ...(0, fileToClass_1.importModule)()],
+        imports: [
+            config_module_1.default,
+            typeorm_1.TypeOrmModule.forRoot(Object.assign(Object.assign({}, config.getTypeORMRoot()), { autoLoadEntities: true })),
+            ...(0, fileToClass_1.importModule)(),
+        ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [
+            {
+                provide: core_1.APP_FILTER,
+                useClass: HttpException_1.HttpExceptionHandler,
+            },
+            app_service_1.AppService,
+            {
+                provide: core_1.APP_INTERCEPTOR,
+                useClass: ResponseInterceptor_1.default,
+            },
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;

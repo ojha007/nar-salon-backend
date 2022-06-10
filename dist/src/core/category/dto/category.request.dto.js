@@ -9,28 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const typeorm_1 = require("typeorm");
-let User = class User {
-};
+exports.CategoryRequestDto = void 0;
+const class_validator_1 = require("class-validator");
+const isExists_1 = require("../../../decorators/isExists");
+class CategoryRequestDto {
+}
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(25),
     __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
+], CategoryRequestDto.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, isExists_1.IsExists)({
+        table: 'categories',
+        column: 'id',
+    }),
     __metadata("design:type", Number)
-], User.prototype, "age", void 0);
-User = __decorate([
-    (0, typeorm_1.Entity)()
-], User);
-exports.User = User;
-//# sourceMappingURL=User.js.map
+], CategoryRequestDto.prototype, "parentId", void 0);
+exports.CategoryRequestDto = CategoryRequestDto;
+//# sourceMappingURL=category.request.dto.js.map
