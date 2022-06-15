@@ -65,7 +65,12 @@ let HttpExceptionHandler = class HttpExceptionHandler {
                 errorObj.message = message
                     ? util.format(message, ...(Array.isArray(source) ? source : [source]))
                     : exception.message;
-                errorObj.description = null;
+                if (typeof exception.getDescription != 'undefined') {
+                    errorObj.description = exception.getDescription();
+                }
+                else {
+                    errorObj.description = '';
+                }
                 errorObj.status = exception.status || errorObj.status;
                 console.log(exception);
             }

@@ -17,6 +17,7 @@ const config_service_1 = require("./modules/config.service");
 const fileToClass_1 = require("./utils/fileToClass");
 const ResponseInterceptor_1 = require("../src/interceptors/ResponseInterceptor");
 const HttpException_1 = require("./handlers/HttpException");
+const jwt_auth_guard_1 = require("./core/auth/guard/jwt-auth.guard");
 let config = new config_service_1.default('.env.local');
 let AppModule = class AppModule {
 };
@@ -37,6 +38,10 @@ AppModule = __decorate([
             {
                 provide: core_1.APP_INTERCEPTOR,
                 useClass: ResponseInterceptor_1.default,
+            },
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwt_auth_guard_1.JwtAuthGuard,
             },
         ],
     })
