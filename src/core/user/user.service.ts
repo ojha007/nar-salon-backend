@@ -11,7 +11,7 @@ export default class UserService {
   ) {}
 
   async findOne(where = {}): Promise<UserEntity | undefined> {
-    return this.repository.findOne(where);
+    return this.repository.findOne(where, { relations: ['role'], cache: true });
   }
 
   async count(where = {}): Promise<number> {

@@ -21,7 +21,7 @@ let UserService = class UserService {
         this.repository = repository;
     }
     async findOne(where = {}) {
-        return this.repository.findOne(where);
+        return this.repository.findOne(where, { relations: ['role'], cache: true });
     }
     async count(where = {}) {
         return await this.repository.count(where);

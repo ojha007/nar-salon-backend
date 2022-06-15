@@ -26,7 +26,6 @@ let config = new ConfigService('.env.local');
       provide: APP_FILTER,
       useClass: HttpExceptionHandler,
     },
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: ResponseInterceptor,
@@ -35,6 +34,7 @@ let config = new ConfigService('.env.local');
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+    AppService,
   ],
 })
 export class AppModule {}

@@ -19,6 +19,7 @@ let AppointmentController = class AppointmentController {
     async create() {
         return;
     }
+    async update() { }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -27,8 +28,15 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    (0, response_1.Response)('RECIEVED', ['Appointment']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppointmentController.prototype, "update", null);
 AppointmentController = __decorate([
-    (0, common_1.Controller)(['internal/appointments', '/appointments']),
+    (0, common_1.Controller)(['internal/appointments', 'appointments']),
     __metadata("design:paramtypes", [appointment_service_1.default])
 ], AppointmentController);
 exports.default = AppointmentController;

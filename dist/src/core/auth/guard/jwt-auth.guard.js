@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const isPublic_meta_1 = require("../../../meta/isPublic.meta");
 const passport_1 = require("@nestjs/passport");
+const custom_exception_1 = require("../../../exceptions/custom.exception");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
     constructor(reflector) {
         super();
@@ -24,10 +25,19 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
             context.getHandler(),
             context.getClass(),
         ]);
-        if (isPublic) {
+        if (isPublic)
             return true;
-        }
         return super.canActivate(context);
+    }
+    handleRequest(err, user, info) {
+        if ((info === null || info === void 0 ? void 0 : info.name) === 'TokenExpiredError')
+            throw new custom_exception_1.default(401, 'TOKEN_EXPIRED');
+        if ((info === null || info === void 0 ? void 0 : info.name) === 'JsonWebTokenError')
+            throw new custom_exception_1.default(401, 'INVALID_TOKEN');
+        if (err || !user) {
+            throw err || new common_1.UnauthorizedException();
+        }
+        return user;
     }
 };
 JwtAuthGuard = __decorate([

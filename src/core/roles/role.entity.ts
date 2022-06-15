@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import UserEntity from '../user/user.entity';
 
 @Entity({ name: 'roles' })
 export default class RoleEntity extends BaseEntity {
@@ -13,4 +20,7 @@ export default class RoleEntity extends BaseEntity {
     nullable: false,
   })
   name: string;
+
+  @OneToMany(() => UserEntity, (user) => user.role)
+  users: UserEntity[];
 }

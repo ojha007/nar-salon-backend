@@ -3,13 +3,14 @@ export const MESSAGES = {
     NOT_FOUND: "%s doesn't exist on our record.",
     INVALID_CRED: 'The given either username or password is invalid.',
     EMAIL_EXISTS: 'The given email address already exists on our record.',
+    TOKEN_EXPIRED: 'The given token has been expired.',
+    INVALID_TOKEN: 'The token is invalid.',
   },
   SUCCESS: {
     FETCHED: '%s fetched successfully.',
     CREATED: '%s created successfully.',
     UPDATED: '%s updated sucessfully.',
     DELETED: '%s removed sucessfully.',
-    RECIEVED:
-      'we have received your %s.We will review and send you a confirmation',
+    RECIEVED: 'Thank You.We will review and send you a confirmation',
   },
 };

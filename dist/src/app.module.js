@@ -34,7 +34,6 @@ AppModule = __decorate([
                 provide: core_1.APP_FILTER,
                 useClass: HttpException_1.HttpExceptionHandler,
             },
-            app_service_1.AppService,
             {
                 provide: core_1.APP_INTERCEPTOR,
                 useClass: ResponseInterceptor_1.default,
@@ -43,6 +42,7 @@ AppModule = __decorate([
                 provide: core_1.APP_GUARD,
                 useClass: jwt_auth_guard_1.JwtAuthGuard,
             },
+            app_service_1.AppService,
         ],
     })
 ], AppModule);

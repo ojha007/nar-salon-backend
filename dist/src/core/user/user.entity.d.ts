@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import RoleEntity from '../roles/role.entity';
 export default class UserEntity extends BaseEntity {
     id: number;
     fullName: string;
@@ -9,4 +10,5 @@ export default class UserEntity extends BaseEntity {
     avatar: string;
     createdAt: string;
     updatedAt: string;
+    role: RoleEntity;
 }

@@ -5,7 +5,6 @@ import UsersModule from '../user/user.module';
 import AuthService from './auth.service';
 import { jwtConstants } from '../../constants/config';
 import JwtStrategy from './strategies/jwt.strategy';
-import LocalStrategy from './strategies/local.strategy';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -20,7 +19,7 @@ describe('AuthService', () => {
           signOptions: { expiresIn: '60s' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
@@ -44,7 +43,7 @@ describe('validateUser', () => {
           signOptions: { expiresIn: '60s' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
@@ -77,14 +76,14 @@ describe('validateLogin', () => {
           signOptions: { expiresIn: '60s' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
   });
 
   it('should return JWT object when credentials are valid', async () => {
-    const res = await service.login({ username: 'maria', userId: 3 });
+    const res = await service.login({ email: 'maria', password: 'ddd' });
     expect(res.access_token).toBeDefined();
   });
 });

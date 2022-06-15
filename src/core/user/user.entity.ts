@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import RoleEntity from '../roles/role.entity';
 
 @Entity({ name: 'users' })
 export default class UserEntity extends BaseEntity {
@@ -58,4 +61,8 @@ export default class UserEntity extends BaseEntity {
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   updatedAt: string;
+
+  @ManyToOne(() => RoleEntity, (role) => role.users, { onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'role_id' })
+  role: RoleEntity;
 }

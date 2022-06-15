@@ -1,8 +1,8 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, Put } from '@nestjs/common';
 import { Response } from 'src/decorators/response';
 import AppointmentService from './appointment.service';
 
-@Controller(['internal/appointments', '/appointments'])
+@Controller(['internal/appointments', 'appointments'])
 export default class AppointmentController {
   constructor(private readonly service: AppointmentService) {}
 
@@ -11,4 +11,8 @@ export default class AppointmentController {
   async create() {
     return;
   }
+
+  @Put(':id')
+  @Response('RECIEVED', ['Appointment'])
+  async update() {}
 }

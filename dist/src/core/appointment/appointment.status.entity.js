@@ -9,25 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const passport_jwt_1 = require("passport-jwt");
-const passport_1 = require("@nestjs/passport");
-const common_1 = require("@nestjs/common");
-const config_1 = require("../../../constants/config");
-let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
-    constructor() {
-        super({
-            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: false,
-            secretOrKey: config_1.jwtConstants.secret,
-        });
-    }
-    async validate(payload) {
-        return { userId: payload.id, username: payload.email };
-    }
+const typeorm_1 = require("typeorm");
+let AppointmentStatusEntity = class AppointmentStatusEntity {
 };
-JwtStrategy = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
-], JwtStrategy);
-exports.default = JwtStrategy;
-//# sourceMappingURL=jwt.strategy.js.map
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], AppointmentStatusEntity.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        name: 'name',
+        nullable: false,
+        unique: true,
+        type: 'varchar',
+        length: 20,
+    }),
+    __metadata("design:type", String)
+], AppointmentStatusEntity.prototype, "name", void 0);
+AppointmentStatusEntity = __decorate([
+    (0, typeorm_1.Entity)({ name: 'appointment_statuses' })
+], AppointmentStatusEntity);
+exports.default = AppointmentStatusEntity;
+//# sourceMappingURL=appointment.status.entity.js.map
