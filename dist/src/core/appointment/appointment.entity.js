@@ -10,9 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const salon_service_entity_1 = require("../salon/entities/salon.service.entity");
 const user_entity_1 = require("../user/user.entity");
 const appointment_status_entity_1 = require("./appointment.status.entity");
-let AppointmentEntity = class AppointmentEntity {
+let AppointmentEntity = class AppointmentEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'id', type: 'int' }),
@@ -40,6 +41,19 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'status_id' }),
     __metadata("design:type", appointment_status_entity_1.default)
 ], AppointmentEntity.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'customer_name', type: 'varchar', nullable: true }),
+    __metadata("design:type", String)
+], AppointmentEntity.prototype, "customerName", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'phone', type: 'varchar', length: 10, nullable: true }),
+    __metadata("design:type", String)
+], AppointmentEntity.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => salon_service_entity_1.default),
+    (0, typeorm_1.JoinColumn)({ name: 'service_id' }),
+    __metadata("design:type", salon_service_entity_1.default)
+], AppointmentEntity.prototype, "service", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.default),
     (0, typeorm_1.JoinColumn)({ name: 'created_by' }),

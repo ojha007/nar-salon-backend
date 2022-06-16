@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const response_1 = require("../../decorators/response");
+const isPublic_meta_1 = require("../../meta/isPublic.meta");
 const appointment_service_1 = require("./appointment.service");
 let AppointmentController = class AppointmentController {
     constructor(service) {
@@ -23,6 +24,7 @@ let AppointmentController = class AppointmentController {
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, isPublic_meta_1.NoAuth)(),
     (0, response_1.Response)('RECIEVED', ['Appointment']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

@@ -1,18 +1,19 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import SalonServiceEntitiy from '../salon/entities/salon.service.entity';
 import UserEntity from '../user/user.entity';
 import AppointmentStatusEntity from './appointment.status.entity';
 
 @Entity({ name: 'appointments' })
-export default class AppointmentEntity {
+export default class AppointmentEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id: number;
 
@@ -32,6 +33,16 @@ export default class AppointmentEntity {
   @ManyToOne(() => AppointmentStatusEntity)
   @JoinColumn({ name: 'status_id' })
   status: AppointmentStatusEntity;
+
+  @Column({ name: 'customer_name', type: 'varchar', nullable: true })
+  customerName: string;
+
+  @Column({ name: 'phone', type: 'varchar', length: 10, nullable: true })
+  phone: string;
+
+  @ManyToOne(() => SalonServiceEntitiy)
+  @JoinColumn({ name: 'service_id' })
+  service: SalonServiceEntitiy;
 
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'created_by' })

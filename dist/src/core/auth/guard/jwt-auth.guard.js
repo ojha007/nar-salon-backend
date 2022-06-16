@@ -27,6 +27,8 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         ]);
         if (isPublic)
             return true;
+        const request = context.switchToHttp().getRequest();
+        console.log(request);
         return super.canActivate(context);
     }
     handleRequest(err, user, info) {
