@@ -28,8 +28,16 @@ function IsExists(input, validationOptions) {
                         const options = body.options;
                         if (Array.isArray(options)) {
                             for (let i = 0; i <= options.length - 1; i++) {
-                                query += `and ${options[i].column} = $${rep.length + 1} `;
-                                rep.push(options[i].value);
+                                if (options[i].value === null) {
+                                    query += `and ${options[i].column} is null`;
+                                }
+                                if (options[i].value === 'not null') {
+                                    query += `and ${options[i].column} is not null`;
+                                }
+                                else {
+                                    query += `and ${options[i].column} = $${rep.length + 1} `;
+                                    rep.push(options[i].value);
+                                }
                             }
                         }
                         else {
@@ -37,13 +45,18 @@ function IsExists(input, validationOptions) {
                                 return false;
                             if (!options.value)
                                 return false;
+                            if (options.value === null) {
+                                query += `and ${options.column} is null`;
+                            }
+                            if (options.value === 'not null') {
+                                query += `and ${options.column} is not null`;
+                            }
                             else {
                                 query += ` and ${options.column} = $${rep.length + 1} `;
                                 rep.push(options.value);
                             }
                         }
                     }
-                    console.log(query);
                     const response = await entityManager.query(query, rep);
                     if (!response.length)
                         return false;

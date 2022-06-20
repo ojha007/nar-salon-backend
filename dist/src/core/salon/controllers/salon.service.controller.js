@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const response_1 = require("../../../decorators/response");
+const isPublic_meta_1 = require("../../../meta/isPublic.meta");
 const SalonServiceRequest_1 = require("../request/SalonServiceRequest");
 const salon_service_1 = require("../services/salon.service");
 let SalonServiceController = class SalonServiceController {
@@ -45,6 +46,7 @@ let SalonServiceController = class SalonServiceController {
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, isPublic_meta_1.NoAuth)(),
     (0, response_1.Response)('FETCHED', ['Services']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

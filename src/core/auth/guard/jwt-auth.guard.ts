@@ -10,7 +10,7 @@ import CustomException from 'src/exceptions/custom.exception';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(private readonly reflector: Reflector) {
     super();
   }
 
@@ -22,7 +22,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (isPublic) return true;
     const request = context.switchToHttp().getRequest();
     console.log(request);
-    // super.logIn(request);
     return super.canActivate(context);
   }
 

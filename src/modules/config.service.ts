@@ -57,7 +57,7 @@ class ConfigService {
       password: this.envConfig.DB_PASSWORD,
       database: this.envConfig.DB_NAME,
       port: parseInt(this.envConfig.DB_PORT),
-      logging: false,
+      logging: true,
       entities: [],
       migrations: [],
     };

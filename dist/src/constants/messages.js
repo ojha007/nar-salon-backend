@@ -8,6 +8,8 @@ exports.MESSAGES = {
         EMAIL_EXISTS: 'The given email address already exists on our record.',
         TOKEN_EXPIRED: 'The given token has been expired.',
         INVALID_TOKEN: 'The token is invalid.',
+        MASTER_MISSING: 'Master data hasnot been setup.',
+        SLOT_NOT_AVALILABLE: 'Sorry the date and time you are loking for is already booked.',
     },
     SUCCESS: {
         FETCHED: '%s fetched successfully.',

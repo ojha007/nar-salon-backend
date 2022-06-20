@@ -26,6 +26,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentStatusEntity.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'is_default', type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], AppointmentStatusEntity.prototype, "isDefault", void 0);
 AppointmentStatusEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'appointment_statuses' })
 ], AppointmentStatusEntity);

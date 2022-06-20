@@ -5,6 +5,8 @@ export declare const MESSAGES: {
         EMAIL_EXISTS: string;
         TOKEN_EXPIRED: string;
         INVALID_TOKEN: string;
+        MASTER_MISSING: string;
+        SLOT_NOT_AVALILABLE: string;
     };
     SUCCESS: {
         FETCHED: string;

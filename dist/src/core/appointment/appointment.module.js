@@ -12,6 +12,7 @@ const appointment_controller_1 = require("./appointment.controller");
 const appointment_entity_1 = require("./appointment.entity");
 const appointment_service_1 = require("./appointment.service");
 const appointment_status_entity_1 = require("./appointment.status.entity");
+const status_service_1 = require("./status.service");
 let AppointmentModule = class AppointmentModule {
 };
 AppointmentModule = __decorate([
@@ -20,7 +21,7 @@ AppointmentModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([appointment_entity_1.default, appointment_status_entity_1.default]),
         ],
         controllers: [appointment_controller_1.default],
-        providers: [appointment_service_1.default],
+        providers: [appointment_service_1.default, status_service_1.default],
         exports: [],
     })
 ], AppointmentModule);

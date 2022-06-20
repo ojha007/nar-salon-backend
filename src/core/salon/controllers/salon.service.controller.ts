@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { Response } from 'src/decorators/response';
+import { NoAuth } from 'src/meta/isPublic.meta';
 import { SalonServiceRequest } from '../request/SalonServiceRequest';
 import SalonService from '../services/salon.service';
 
@@ -16,6 +17,7 @@ export default class SalonServiceController {
   constructor(private readonly service: SalonService) {}
 
   @Get()
+  @NoAuth()
   @Response('FETCHED', ['Services'])
   async index() {
     return this.service.findAll();

@@ -13,4 +13,7 @@ export default class AppointmentStatusEntity extends BaseEntity {
     length: 20,
   })
   name: string;
+
+  @Column({ name: 'is_default', type: 'boolean', default: false })
+  isDefault: boolean;
 }

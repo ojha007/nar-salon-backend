@@ -13,17 +13,29 @@ const passport_jwt_1 = require("passport-jwt");
 const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
 const config_1 = require("../../../constants/config");
+const typeorm_1 = require("typeorm");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor() {
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: true,
             secretOrKey: config_1.jwtConstants.secret,
-            session: true
+            session: true,
         });
     }
     async validate(payload) {
-        return { userId: payload.id, username: payload.email };
+        let connection = (0, typeorm_1.getManager)();
+        let user = await connection.query(`
+      select name,
+      email,
+      u.id as "userId",
+      json_build_object('id', r.id, 'name', r.name) as roles
+     from users u
+         join roles r on u.role_id = r.id
+       where u.id= $1 
+
+     `, [payload.id]);
+        return user;
     }
 };
 JwtStrategy = __decorate([
