@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SlotRequestInterface = exports.AppointmentDto = void 0;
+exports.SlotUpdateInterface = exports.SlotRequestInterface = exports.AppointmentDto = void 0;
 const class_validator_1 = require("class-validator");
 const salon_service_entity_1 = require("../../salon/entities/salon.service.entity");
 const isExists_1 = require("../../../decorators/isExists");
@@ -43,6 +43,10 @@ __decorate([
     __metadata("design:type", String)
 ], AppointmentDto.prototype, "phone", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], AppointmentDto.prototype, "notes", void 0);
+__decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     (0, isExists_1.IsExists)({
@@ -67,4 +71,7 @@ exports.AppointmentDto = AppointmentDto;
 class SlotRequestInterface {
 }
 exports.SlotRequestInterface = SlotRequestInterface;
+class SlotUpdateInterface extends SlotRequestInterface {
+}
+exports.SlotUpdateInterface = SlotUpdateInterface;
 //# sourceMappingURL=Appointment.dto.js.map

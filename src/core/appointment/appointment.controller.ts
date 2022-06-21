@@ -37,6 +37,9 @@ export default class AppointmentController {
   }
 
   @Put(':id')
+  @UseGuards(RoleGuard(Role.Admin))
   @Response('RECIEVED', ['Appointment'])
-  async update() {}
+  async update(@Param('id') id: number, @Body() payload: AppointmentDto) {
+    return this.service.update(id, payload);
+  }
 }

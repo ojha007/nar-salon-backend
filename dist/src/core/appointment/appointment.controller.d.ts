@@ -6,5 +6,5 @@ export default class AppointmentController {
     constructor(service: AppointmentService);
     create(payload: AppointmentDto): Promise<boolean>;
     index(params: AppointmentQueryInterface): Promise<any>;
-    update(): Promise<void>;
+    update(id: number, payload: AppointmentDto): Promise<void>;
 }

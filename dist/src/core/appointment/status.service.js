@@ -22,6 +22,9 @@ let AppointmentStatusService = class AppointmentStatusService {
     async defaultStatus() {
         return this.repository.findOne({ where: { isDefault: true } });
     }
+    async find(where = {}) {
+        return this.repository.findOne({ where });
+    }
 };
 AppointmentStatusService = __decorate([
     __param(0, (0, typeorm_1.InjectRepository)(appointment_status_entity_1.default)),

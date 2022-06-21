@@ -11,4 +11,7 @@ export default class AppointmentStatusService {
   async defaultStatus(): Promise<AppointmentStatusEntity> {
     return this.repository.findOne({ where: { isDefault: true } });
   }
+  async find(where = {}): Promise<AppointmentStatusEntity> {
+    return this.repository.findOne({ where });
+  }
 }

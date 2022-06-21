@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 let AppointmentStatusEntity = class AppointmentStatusEntity extends typeorm_1.BaseEntity {
 };
+AppointmentStatusEntity.BOOKED = 'BOOKED';
+AppointmentStatusEntity.PENDING = 'PENDING';
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)

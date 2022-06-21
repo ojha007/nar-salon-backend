@@ -4,4 +4,5 @@ export default class AppointmentStatusService {
     private repository;
     constructor(repository: Repository<AppointmentStatusEntity>);
     defaultStatus(): Promise<AppointmentStatusEntity>;
+    find(where?: {}): Promise<AppointmentStatusEntity>;
 }

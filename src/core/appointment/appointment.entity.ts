@@ -40,6 +40,9 @@ export default class AppointmentEntity extends BaseEntity {
   @Column({ name: 'phone', type: 'varchar', length: 10, nullable: true })
   phone: string;
 
+  @Column({ name: 'notes', type: 'text', nullable: true })
+  notes: string;
+
   @ManyToOne(() => SalonServiceEntitiy)
   @JoinColumn({ name: 'service_id' })
   service: SalonServiceEntitiy;

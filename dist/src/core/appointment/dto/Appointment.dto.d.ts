@@ -6,6 +6,7 @@ export declare class AppointmentDto {
     slotTo: string;
     customerName: string;
     phone: string;
+    notes: string;
     service: SalonServiceEntitiy;
     userId?: number;
     status?: AppointmentStatusEntity;
@@ -15,4 +16,7 @@ export declare class SlotRequestInterface {
     date: string;
     slotFrom: string;
     slotTo: string;
+}
+export declare class SlotUpdateInterface extends SlotRequestInterface {
+    id: number;
 }

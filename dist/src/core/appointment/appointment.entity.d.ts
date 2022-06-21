@@ -11,6 +11,7 @@ export default class AppointmentEntity extends BaseEntity {
     status: AppointmentStatusEntity;
     customerName: string;
     phone: string;
+    notes: string;
     service: SalonServiceEntitiy;
     createdBy: UserEntity;
     updatedBy: UserEntity;

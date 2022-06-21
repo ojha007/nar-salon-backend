@@ -50,6 +50,10 @@ __decorate([
     __metadata("design:type", String)
 ], AppointmentEntity.prototype, "phone", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'notes', type: 'text', nullable: true }),
+    __metadata("design:type", String)
+], AppointmentEntity.prototype, "notes", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => salon_service_entity_1.default),
     (0, typeorm_1.JoinColumn)({ name: 'service_id' }),
     __metadata("design:type", salon_service_entity_1.default)

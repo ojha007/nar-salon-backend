@@ -5,7 +5,11 @@ import { AppointmentQueryInterface } from 'src/interfaces/RequestQuery.interface
 import { getRepository, Repository } from 'typeorm';
 import AppointmentEntity from './appointment.entity';
 import AppointmentStatusEntity from './appointment.status.entity';
-import { AppointmentDto, SlotRequestInterface } from './dto/Appointment.dto';
+import {
+  AppointmentDto,
+  SlotRequestInterface,
+  SlotUpdateInterface,
+} from './dto/Appointment.dto';
 import AppointmentStatusService from './status.service';
 
 @Injectable()
@@ -33,14 +37,16 @@ export default class AppointmentService {
     return;
   }
 
-  private async isSlotBooked(request: SlotRequestInterface): Promise<number> {
+  private async isSlotBooked(params: SlotRequestInterface): Promise<number> {
+    let status = await this.statusService.find({
+      name: AppointmentStatusEntity.BOOKED,
+    });
+    // if (params.id) {
+    // }
     return await this.repository.count({
       where: {
-        date: request.date,
-        slotFrom: request.slotFrom,
-        service: request.service,
-        slotTo: request.slotTo,
-        status: 1,
+        ...params,
+        status: status.id,
       },
     });
   }
@@ -85,5 +91,17 @@ export default class AppointmentService {
       replacements.push(params.offset);
     }
     return this.repository.query(baseQuery, replacements);
+  }
+
+  async update(id: number, payload: AppointmentDto) {
+    let slotRequest: SlotUpdateInterface = {
+      id,
+      service: payload.service,
+      date: payload.date,
+      slotFrom: payload.slotFrom,
+      slotTo: payload.slotTo,
+    };
+    let isSlotBooked = await this.isSlotBooked(slotRequest);
+    if (isSlotBooked) throw new CustomException(422, 'SLOT_NOT_AVALILABLE');
   }
 }

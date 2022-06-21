@@ -34,6 +34,9 @@ export class AppointmentDto {
   @Length(10, 10)
   phone: string;
 
+  @IsOptional()
+  notes: string;
+
   @IsNotEmpty()
   @IsNumber()
   @IsExists({
@@ -58,4 +61,8 @@ export class SlotRequestInterface {
   date: string;
   slotFrom: string;
   slotTo: string;
+}
+
+export class SlotUpdateInterface extends SlotRequestInterface {
+  id: number;
 }

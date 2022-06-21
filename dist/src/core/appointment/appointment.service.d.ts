@@ -10,4 +10,5 @@ export default class AppointmentService {
     create(payload: AppointmentDto): Promise<boolean>;
     private isSlotBooked;
     findAll(params: AppointmentQueryInterface): Promise<any>;
+    update(id: number, payload: AppointmentDto): Promise<void>;
 }

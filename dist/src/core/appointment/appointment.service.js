@@ -17,6 +17,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const custom_exception_1 = require("../../exceptions/custom.exception");
 const typeorm_2 = require("typeorm");
 const appointment_entity_1 = require("./appointment.entity");
+const appointment_status_entity_1 = require("./appointment.status.entity");
 const status_service_1 = require("./status.service");
 let AppointmentService = class AppointmentService {
     constructor(repository, statusService) {
@@ -40,15 +41,12 @@ let AppointmentService = class AppointmentService {
         await this.repository.save(payload);
         return;
     }
-    async isSlotBooked(request) {
+    async isSlotBooked(params) {
+        let status = await this.statusService.find({
+            name: appointment_status_entity_1.default.BOOKED,
+        });
         return await this.repository.count({
-            where: {
-                date: request.date,
-                slotFrom: request.slotFrom,
-                service: request.service,
-                slotTo: request.slotTo,
-                status: 1,
-            },
+            where: Object.assign(Object.assign({}, params), { status: status.id }),
         });
     }
     async findAll(params) {
@@ -91,6 +89,18 @@ let AppointmentService = class AppointmentService {
             replacements.push(params.offset);
         }
         return this.repository.query(baseQuery, replacements);
+    }
+    async update(id, payload) {
+        let slotRequest = {
+            id,
+            service: payload.service,
+            date: payload.date,
+            slotFrom: payload.slotFrom,
+            slotTo: payload.slotTo,
+        };
+        let isSlotBooked = await this.isSlotBooked(slotRequest);
+        if (isSlotBooked)
+            throw new custom_exception_1.default(422, 'SLOT_NOT_AVALILABLE');
     }
 };
 AppointmentService = __decorate([

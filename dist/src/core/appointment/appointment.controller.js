@@ -32,7 +32,9 @@ let AppointmentController = class AppointmentController {
         params.offset = params.offset || 0;
         return await this.service.findAll(params);
     }
-    async update() { }
+    async update(id, payload) {
+        return this.service.update(id, payload);
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -54,9 +56,12 @@ __decorate([
 ], AppointmentController.prototype, "index", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    (0, common_1.UseGuards)((0, role_guard_1.default)(roles_1.Role.Admin)),
     (0, response_1.Response)('RECIEVED', ['Appointment']),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Appointment_dto_1.AppointmentDto]),
     __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "update", null);
 AppointmentController = __decorate([
