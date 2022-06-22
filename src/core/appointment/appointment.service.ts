@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import CustomException from 'src/exceptions/custom.exception';
-import { AppointmentQueryInterface } from 'src/interfaces/RequestQuery.interface';
-import { getRepository, Repository } from 'typeorm';
+import CustomException from '../../exceptions/custom.exception';
+import { AppointmentQueryInterface } from '../../interfaces/RequestQuery.interface';
+import { Repository } from 'typeorm';
 import AppointmentEntity from './appointment.entity';
 import AppointmentStatusEntity from './appointment.status.entity';
 import {

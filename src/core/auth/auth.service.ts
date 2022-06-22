@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import UsersService from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginRequest, RegisterRequest } from './dto/auth.request';
-import { jwtConstants } from 'src/constants/config';
-import CustomException from 'src/exceptions/custom.exception';
+import { jwtConstants } from '../../constants/config';
+import CustomException from '../../exceptions/custom.exception';
 import UserEntity from '../user/user.entity';
 
 @Injectable()

@@ -8,10 +8,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { Role } from 'src/constants/roles';
-import { Response } from 'src/decorators/response';
-import { AppointmentQueryInterface } from 'src/interfaces/RequestQuery.interface';
-import { NoAuth } from 'src/meta/isPublic.meta';
+import { Role } from '../../constants/roles';
+import { Response } from '../../decorators/response';
+import { AppointmentQueryInterface } from '../../interfaces/RequestQuery.interface';
+import { NoAuth } from '../../meta/isPublic.meta';
 import RoleGuard from '../auth/guard/role.guard';
 import AppointmentService from './appointment.service';
 import { AppointmentDto } from './dto/Appointment.dto';

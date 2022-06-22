@@ -21,4 +21,8 @@ export default class UserService {
   async create(payload: any) {
     return await this.repository.save(payload);
   }
+
+  async findAll(where = {}): Promise<UserEntity[]> {
+    return await this.repository.find(where);
+  }
 }

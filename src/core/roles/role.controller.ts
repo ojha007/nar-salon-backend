@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Response } from 'src/decorators/response';
+import { Response } from '../../decorators/response';
 import { RoleRequest } from './request/role.request';
 import { RolesService } from './role.service';
 

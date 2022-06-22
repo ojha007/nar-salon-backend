@@ -8,8 +8,8 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import SalonServiceEntitiy from 'src/core/salon/entities/salon.service.entity';
-import { IsExists } from 'src/decorators/isExists';
+import SalonServiceEntitiy from '../../../core/salon/entities/salon.service.entity';
+import { IsExists } from '../../../decorators/isExists';
 import AppointmentStatusEntity from '../appointment.status.entity';
 
 export class AppointmentDto {
